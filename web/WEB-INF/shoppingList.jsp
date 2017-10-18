@@ -9,10 +9,24 @@
 <c:import url="/WEB-INF/header.html" />
 
         <h1>Shopping List</h1>
+         
+        <div>Hello, ${user} <a href="ShoppingList?action=logout">Logout</a></div>
         
-        <form method="post" action="/ShoppingList">
-            Username: <input type="text" name="user" value="">
-            <input type="submit" value="Register Name"><br><br>
-        </form><br>
+        <h2>List</h2>
+        <form method="post" action="ShoppingList?action=add">
+            Add Item: <input type="text" name="item">
+            <input type="submit" value="Add">
+        </form>
+        
+        <form method="post" action="ShoppingList?action=delete">
+            <c:forEach var="item" items="${sessionScope.itemList}">
+                <input type="radio" name="items" value="<c:out value="${item}"/>">
+                <label><c:out value="${item}"/></label><br>
+            </c:forEach>
+        
+            <c:if test="${not empty sessionScope.itemList}">
+                <br><input type="submit" value="Delete">
+            </c:if>
+        </form>
         
 <c:import url="/WEB-INF/footer.html" />
